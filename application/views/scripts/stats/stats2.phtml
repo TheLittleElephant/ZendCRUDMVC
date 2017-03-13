@@ -1,0 +1,39 @@
+
+<table class="ui basic table">
+  <thead>
+    <tr>
+      <th>Visiteur</th>
+      <th>Mois</th>
+      <th>ETP</th>
+      <th>KM</th>
+      <th>NUI</th>
+      <th>REP</th>
+    </tr>
+  </thead>
+  <tbody>
+<?php 
+$i = 0; 
+while ($i < count($this->lesStats)) {     
+//niveau 1 
+    $visiteurCourant = $this->lesStats[$i]['idVisiteur']; 
+    $nbFiches = 0; 
+    $totalMontant=0; 
+    while ($i < count($this->lesStats) && $this->lesStats[$i]['idVisiteur'] == $visiteurCourant ) { 
+//niveau2 
+        //afficher le detail 
+    echo "<tr><td>".$this->lesStats[$i]['idVisiteur'] . "</td>" .
+            "<td>" . $this->lesStats[$i]['mois'] . "</td>"  .
+            "<td>". $this->lesStats[$i]['nbFiches'] . "</td>".
+            "<td>". $this->lesStats[$i]['total']."</td></tr>";
+        //actualiser les cumuls 
+        $nbFiches++; 
+        $totalMontant+=$this->lesStats[$i]['total']
+; 
+        $i++; 
+    } //fin TQ fiches de frais du meme visiteur 
+        //afficher les cumuls du visiteur que l’on vient de « terminer » 
+    echo '<tr style="background: yellowgreen"><td colspan="5">'.$visiteurCourant . " nbFiches: ".$nbFiches
+ . " Total: ".$totalMontant."</td></tr>"; 
+} // finTQ fiches de frais
+?>
+</table>

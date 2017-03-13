@@ -1,0 +1,112 @@
+<?php
+$auth = Zend_Auth::getInstance();
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $this->layout()->titre ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" integrity="sha256-lCqHBvboFPu7gyEswcz5UdbXKyB6FDOtfbOeMvUEfkY=" crossorigin="anonymous" />
+        <link href="<?php echo $this->baseUrl() ?>/css/daterangepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo $this->baseUrl() ?>/css/main.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        
+       
+        <div class="ui visible sidebar inverted vertical menu">
+            <div class="item">
+                <a class="ui logo icon image" href="#">
+                    <img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/zend_framework-48.png">
+                </a>
+                <a href="#"><b>CRUD</b></a>
+            </div>
+            <?php if ($auth->hasIdentity()) : ?>
+            <div class="item">
+                <div class="header">Connecté en tant que : </div>
+                <?php echo $auth->getIdentity() ?>
+            </div>
+            <?php else : ?>
+             <div class="item">
+                <div class="header">Non connecté</div>
+                <a href="<?php echo $this->url(array("controller" => 'auth', "action" => "logout")) ?>">Se connecter</a>
+            </div>
+            <?php endif; ?>
+            <?php if($auth->hasIdentity()) : ?>
+                <?php foreach ($this->navigation()->getContainer() as $page): ?>
+                    <?php if ($page->hasPages()) : ?>
+                        <div class="item">
+                            <div class="header"><?php echo $page->label; ?></div>
+                            <div class="menu">
+                                <?php foreach ($page->getPages() as $page) : ?>
+                                    <a class="item" href="<?php echo $page->getHref(); ?>"><i class="<?php echo $page->icon ?> icon"></i><?php echo $page->label; ?></a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php else : ?>
+                        <a class="item" href="<?php echo $page->getHref(); ?>"><i class="<?php echo $page->icon ?> icon"></i><?php echo $page->label; ?></a>
+                        <?php endif; ?>   
+                 <?php endforeach; ?>
+             <?php endif; ?>
+        </div>
+        <div class="pusher">
+            <div class="ui top fixed inverted menu">
+                <div class="ui container">
+                    <a href="#" class="header item"><img src="https://cdn4.iconfinder.com/data/icons/logos-3/504/zend_framework-48.png" alt=""> CRUD</a>
+                    <?php if($auth->hasIdentity()) : ?>
+                    <div class="ui simple dropdown item">
+                            <img class="ui avatar image" src="<?php echo $this->baseUrl() ?>/img/steve.jpg" alt="">
+                            <b><?php echo $auth->getIdentity() ?></b>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <div class="ui card">
+                                    <div class="image" href="#">
+                                      <img src="<?php echo $this->baseUrl() ?>/img/steve.jpg" alt="">
+                                    </div>
+                                    <div class="content">
+                                      <div class="header" href="#"><?php echo $auth->getIdentity() ?>
+                                          <div class="ui red horizontal label">Admin</div>
+                                      </div>
+                                    </div>
+                                    <a class="ui bottom attached button" href="<?php echo $this->url(array("controller" => 'auth', "action" => "logout")) ?>">
+                                        <i class="sign out icon"></i>
+                                        Se déconnecter
+                                    </a>
+                                  </div>
+                            </div>
+                        </div>
+                        <?php foreach ($this->navigation()->getContainer() as $page): ?>
+                            <?php if ($page->hasPages()) : ?>
+                                <div class="ui simple dropdown item">
+                                    <i class="<?php echo $page->icon ?> icon"></i><?php echo $page->label; ?>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <?php foreach ($page->getPages() as $page) : ?>
+                                            <a class="item" href="<?php echo $page->getHref(); ?>"><i class="<?php echo $page->icon ?> icon"></i><?php echo $page->label; ?></a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            <?php else : ?>
+                                <a class="item" href="<?php echo $page->getHref(); ?>"><i class="<?php echo $page->icon ?> icon"></i><?php echo $page->label; ?></a>
+                            <?php endif; ?>   
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+            
+            <div class="ui text container">
+                
+                <div class="ui breadcrumb"><?php echo $this->navigation()->breadcrumbs()->setSeparator('<i class="right angle icon divider"></i>'); ?></div>
+                <h3 class="ui header"><?php echo $this->layout()->titre ?></h3>
+                <?php echo $this->layout()->content; ?>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js" integrity="sha256-mq9Ru97qzOm1x5zeYFfPniWgQP9tEmjo3O4jUEJdjNY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js" integrity="sha256-vvT7Ok9u6GbfnBPXnbM6FVDEO8E1kTdgHOFZOAXrktA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js" integrity="sha256-1CD01z5DX4BPFhEeRAb2th8GDKbHhHjjjda91pLCrt4=" crossorigin="anonymous"></script>
+    <script src="<?php echo $this->baseUrl() ?>/js/daterangepicker.min.js" type="text/javascript"></script>
+    <script src="<?php echo $this->baseUrl() ?>/js/main.js" type="text/javascript"></script>
+</html>
+

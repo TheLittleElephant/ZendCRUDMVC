@@ -1,0 +1,84 @@
+<title>Toto</title>
+<!--
+<table class="ui celled definition table">
+<thead>
+    <th>ID</th>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th></th>
+</thead>
+<tbody>
+<?php /* * foreach($this->lesVisiteurs as $unVisiteur) : ?>
+  <tr>
+  <td><?php echo $unVisiteur->id; ?></td>
+  <td><?php echo $unVisiteur->nom; ?></td>
+  <td><?php echo $unVisiteur->prenom; ?></td>
+  <td><a class="ui blue button" href="<?php echo $this->url(array("controller" => 'visiteur', "action" => 'modifier', "id" => $unVisiteur->id)) ?>">Modifier</a></td>
+  <td><a class="ui red button" href="<?php echo  $this->url(array("controller" => 'visiteur', "action" => 'supprimer', "id" => $unVisiteur->id)) ?>">Supprimer</a></td>
+  </tr>
+  <?php endforeach; */ ?>
+</tbody>
+<tfoot>
+    <tr>
+        <td><a class="ui blue button" href="<?php echo $this->url(array("controller" => 'visiteur', "action" => "ajouter")) ?>">Ajouter un visiteur</a></td>
+    </tr>
+</tfoot>
+</table>
+-->
+
+<h3 class="ui header"><?php echo $this->titre ?></h3>
+
+<div class="ui styled accordion">
+    <?php foreach ($this->lesVisiteurs as $unVisiteur) : ?>
+        <div class="active title">
+            <div class="ui grid">
+                <div class="left floated five wide column">
+                    <i class="dropdown icon"></i><?php echo $unVisiteur->nom . " " . $unVisiteur->prenom; ?> 
+                    </div>
+                    <div class="right floated five wide column">
+                        <a href="<?php echo $this->url(array("controller" => 'visiteur', "action" => 'modifier', "id" => $unVisiteur->id)) ?>"><i class="write icon"></i></a>
+                        <a class="supprimer" data-modal="supprimerVisiteur-<?php echo $unVisiteur->id ?>"><i class="remove red user icon"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <p>
+                    <?php echo $unVisiteur->adresse ?>
+                    <?php echo $unVisiteur->cp ?>
+                    <?php echo strtoupper($unVisiteur->ville) ?>
+                </p>
+                <p><b>Date d'embauche : </b> <?php echo $this->dateFrancais($unVisiteur->dateEmbauche) ?><br/>
+                <b>Ancienneté : </b> <?php echo $this->anciennete($unVisiteur->dateEmbauche) ?></p>
+                
+                <button class="ui primary languages button" data-modal="<?php echo $unVisiteur->id ?>"><i class="world icon"></i> <?php echo $unVisiteur->getNombreDeLanguesParlees() ?> langue<?php echo $unVisiteur->getNombreDeLanguesParlees() > 1 ? "s" : "" ?> parlée<?php echo $unVisiteur->getNombreDeLanguesParlees() > 1 ? "s" : "" ?></button>
+                </p>
+            </div>
+    
+           <div id="supprimerVisiteur-<?php echo $unVisiteur->id ?>" class="ui small modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    Confirmation requise
+                </div>
+                <div class="content">
+                    <div class="ui basic segment">Voulez-vous vraiment supprimer le visiteur <b><?php echo $unVisiteur->nom . " " . $unVisiteur->prenom; ?></b> ? </div>
+                </div>
+                <div class="actions">
+                    <a class="ui negative button" href="<?php echo $this->url(array("controller" => 'visiteur', "action" => 'supprimer', "id" => $unVisiteur->id)) ?>">Supprimer</a>
+                    <div class="ui positive button">Annuler</div>
+                </div>
+            </div>
+
+            <div id="<?php echo $unVisiteur->id ?>" class="ui small modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    Les langues parlées par <?php echo $unVisiteur->nom . " " . $unVisiteur->prenom; ?>
+                </div>
+                <div class="content">
+                    <div class="ui basic segment"></div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <br/>
+    <?php echo $this->paginationControl($this->lesVisiteurs, 'sliding', 'pagination.phtml'); ?>

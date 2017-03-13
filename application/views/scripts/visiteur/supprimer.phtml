@@ -1,0 +1,10 @@
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>Visiteur</b> and script/action name <b>supprimer</b></p>
+</div>
+<h2 class="ui header">Supprimer le visiteur <b><?php echo $this->visiteur["nom"] ?></b> avec l'identifiant <b><?php echo $this->visiteur["id"] ?></b> ?
+    <form class="ui form" action="<?php echo  $this->url(array("controller" => 'visiteur', "action" => "supprimer")) ?>" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->visiteur["id"] ?>"/>
+        <input type="submit" class="ui green button" name="supprimer" value="Non"/>
+        <input type="submit" class="ui red button" name="supprimer" value="Oui"/>
+    </form>

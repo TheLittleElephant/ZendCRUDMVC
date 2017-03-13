@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<config>
+    <nav>
+        <visiteurs>
+            <label>Visiteurs</label>
+            <icon>users</icon>
+            <uri>#</uri>
+            <pages>
+                <lister>
+                    <icon>list layout</icon>
+                    <label>Lister les visiteurs</label>
+                    <controller>visiteur</controller>
+                    <action>index</action>
+                </lister>
+                <ajouter>
+                    <icon>add user</icon>
+                    <label>Ajouter un visiteur</label>
+                    <controller>visiteur</controller>
+                    <action>ajouter</action>
+                </ajouter>
+            </pages>
+        </visiteurs>
+        <statistiques>
+            <label>Statistiques</label>
+            <icon>pie chart</icon>
+            <uri>#</uri>
+            <pages>
+                <stats1>
+                    <icon>bar chart</icon>
+                    <label>Cumuls par visiteurs</label>
+                    <controller>stats</controller>
+                    <action>stats1</action>
+                </stats1>
+                <stats2>
+                    <icon>line chart</icon>
+                    <label>Cumuls par visiteur et par frais forfait</label>
+                    <controller>stats</controller>
+                    <action>stats2</action>
+                </stats2>
+            </pages>
+        </statistiques>
+        <!--<lister>
+            <icon>list layout</icon>
+            <label>Lister les visiteurs</label>
+            <controller>Visiteur</controller>
+            <action>index</action>
+        </lister>
+        <ajouter>
+            <icon>add user</icon>
+            <label>Ajouter un visiteur</label>
+            <controller>Visiteur</controller>
+            <action>ajouter</action>
+        </ajouter>
+        <deconnecter>
+            <icon>sign out</icon>
+            <label>Se déconnecter</label>
+            <controller>Auth</controller>
+            <action>logout</action>
+        </deconnecter>-->
+    </nav>
+</config>

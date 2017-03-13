@@ -1,0 +1,9 @@
+select idVisiteur, mois, 
+sum(case idFraisForfait when 'ETP' then (quantite*montant) end) as 'ETP',
+sum(case idFraisForfait when 'KM' then (quantite*montant)  end) as 'KM',
+sum(case idFraisForfait when 'NUI' then (quantite*montant) end) as 'NUI', 
+sum(case idFraisForfait when 'REP' then (quantite*montant) end) as 'REP'
+from fraisforfait
+join lignefraisforfait on idFraisForfait = fraisforfait.id
+group by idVisiteur, mois
+order by idVisiteur, mois, idFraisForfait
